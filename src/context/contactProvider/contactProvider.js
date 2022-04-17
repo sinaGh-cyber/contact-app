@@ -62,7 +62,7 @@ const useContact = () => {
     return contact;
   }
 
-  throw Error('contactDispatcherContext Context issue');
+  throw Error('contactContext Context issue');
 };
 
 export default ContactProvider;
