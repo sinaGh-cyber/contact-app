@@ -1,20 +1,11 @@
-import {
-  createContext,
-  useContext,
-  useReducer,
-} from 'react/cjs/react.development';
+
+import { createContext, useReducer, useContext  } from 'react';
+
 
 const contactContext = createContext();
 const contactDispatcherContext = createContext();
 
-const ContactProvider = ({ children }) => {
-  const initValue = {
-    allContacts: [],
-    filteredContacts: [],
-    currentStatus: 'Loading',
-  };
-
-  const reducer = (stat, { type, id, data }) => {
+const reducer = (stat, { type, id, data }) => {
     switch (type) {
       case 'refresh':
         return data;
@@ -25,10 +16,22 @@ const ContactProvider = ({ children }) => {
     }
   };
 
+const ContactProvider = ({ children }) => {
+  const initValue = {
+    allContacts: [],
+    filteredContacts: [],
+    currentStatus: 'Loading',
+  };
+
+
+
   const asyncDispatcher = ({ type, id, data }) => {
     switch (type) {
-      case 'refresh':
-        return data;
+      case 'refresh':{
+          contactDispatcher()
+          return data;
+      }
+        
 
       default: {
         throw Error('unknown action in asyncDispatcher');
