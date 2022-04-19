@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <Routes>
         {routes.map((rout) => {
-          <Route path={rout.path} element={rout.element} key={rout.id} />;
+         return <Route path={rout.path} element={rout.element} key={rout.id} />;
         })}
       </Routes>
     </div>
