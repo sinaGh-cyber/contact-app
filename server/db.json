@@ -1,9 +1,19 @@
 {
-  "posts": [
+  "contacts": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "name": "json-server",
+      "email": "typicode"
+    },
+    {
+      "id": 2,
+      "name": "json-server",
+      "email": "typicode"
+    },
+    {
+      "id": 3,
+      "name": "json-server",
+      "email": "typicode"
     }
   ]
 }
