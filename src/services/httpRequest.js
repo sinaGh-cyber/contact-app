@@ -1,23 +1,23 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8000/comments';
+axios.defaults.baseURL = 'http://localhost:8000/contacts';
 
 const httpRequests = {
-  getAllComments() {
+  getAllContacts() {
     return axios.get();
   },
-  getSingleComment(id) {
+  getSingleContact(id) {
     return axios.get(`/${id}`);
   },
 
-  addNewComment(body) {
+  addNewContact(body) {
     return axios.post('', body);
   },
 
-  deleteComment(id) {
+  deleteContact(id) {
     return axios.delete(`/${id}`);
   },
 
-  updateComment(id, body) {
+  updateContact(id, body) {
     return axios.put(`/${id}`, body);
   },
 };
