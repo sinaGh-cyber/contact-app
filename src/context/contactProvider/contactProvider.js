@@ -8,10 +8,17 @@ const contactDispatcherContext = createContext();
 const reducer = (stat, { type, id, data }) => {
   switch (type) {
     case 'LoadingMode': {
+      // console.log('LoadingMode');
       return { ...stat, currentStatus: 'Loading' };
     }
     case 'getData': {
-      return { ...stat, currentStatus: 'Loaded', allContacts: data };
+      // console.log('getData');
+      return {
+        ...stat,
+        currentStatus: 'Loaded',
+        allContacts: data,
+        filteredContacts: data,
+      };
     }
 
     default: {
