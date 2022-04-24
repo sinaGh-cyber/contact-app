@@ -5,4 +5,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    
 }
+.App .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 98%;
+        width: 98%;
+        border: 5px solid rgb(255, 213, 157);
+        background-color: rgb(252, 219, 177);
+        border-radius: 5px;
+    }
