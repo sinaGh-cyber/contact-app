@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 
     
 }
@@ -18,4 +19,5 @@
         border: 5px solid rgb(255, 213, 157);
         background-color: rgb(252, 219, 177);
         border-radius: 5px;
+        overflow: hidden;
     }
