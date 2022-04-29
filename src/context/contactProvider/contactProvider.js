@@ -7,15 +7,48 @@ const contactDispatcherContext = createContext();
 
 const reducer = (stat, { type, id, data }) => {
   switch (type) {
-    case 'LoadingMode': {
-      // console.log('LoadingMode');
-      return { ...stat, currentStatus: 'Loading' };
-    }
-    case 'getData': {
-      // console.log('getData');
+    case 'filterContacts': {
+      if (data && data !== stat.filterWord) {
+        const filteredList = stat.allContacts.filter((contact) =>
+          contact.name.includes(data)
+        );
+        return {
+          ...stat,
+          filteredContacts: filteredList,
+          currentStatus: 'Loaded',
+        };
+      }
       return {
         ...stat,
-        currentStatus: 'Loaded',
+        filteredContacts: stat.allContacts,
+      };
+    }
+
+
+    case 'deleteContact': {
+      if (data < 300 && 199 < data) {
+        const cleanedList = stat.allContacts.filter(
+          (contact) => contact.id !== id
+        );
+        return { ...stat, allContacts: cleanedList };
+      }
+      return stat;
+    }
+
+
+    case 'LoadedMode': {
+      return { ...stat, currentStatus: 'Loaded' };
+    }
+
+
+    case 'LoadingMode': {
+      return { ...stat, currentStatus: 'Loading' };
+    }
+
+
+    case 'getData': {
+      return {
+        ...stat,
         allContacts: data,
         filteredContacts: data,
       };
@@ -32,24 +65,53 @@ const ContactProvider = ({ children }) => {
     allContacts: [],
     filteredContacts: [],
     currentStatus: 'Loading',
+    filterWord: '',
+    isSelectModeOn: false,
+    selectedContactIdList:[]
   };
 
-  const asyncDispatcher = ({ type, id, data }) => {
+  const [contactList, contactDispatcher] = useReducer(reducer, initValue);
+
+  const asyncDispatcher = async ({ type, id, data }) => {
     switch (type) {
-      case 'LoadingMode': {
-        contactDispatcher({ type: 'LoadingMode' });
+      case 'deleteContact': {
+        try {
+          contactDispatcher({ type: 'LoadingMode' });
+          const res = await httpRequests.deleteContact(id);
+          contactDispatcher({
+            type: 'deleteContact',
+            id,
+            data: res.status,
+          });
+        } catch (err) {
+          toast.error(`${err}`, { toastId: `delete${id}` });
+        }
+        try {
+          contactDispatcher({ type: 'filterContacts', data });
+          contactDispatcher({ type: 'LoadedMode' });
+          toast.info('Contact deleted successfully. ', {
+            toastId: `deleteSucceed${id}`,
+          });
+        } catch (err) {
+          console.log(err);
+        }
+
         return;
       }
-      case 'getData': {
-        httpRequests
-          .getAllContacts()
-          .then(({ data }) => {
-            contactDispatcher({ type: 'getData', data });
-          })
-          .catch(() => {
-            toast.error('Can Not fetch data', { toastId: 'getErrorToast' });
-          });
 
+      case 'getData': {
+        try {
+          contactDispatcher({ type: 'LoadingMode' });
+          const res = await httpRequests.getAllContacts();
+          contactDispatcher({ type: 'getData', data: res.data });
+        } catch (err) {
+          toast.error(err, { toastId: 'getErr' });
+        }
+        try {
+          contactDispatcher({ type: 'LoadedMode' });
+        } catch (err) {
+          toast.error(err, { toastId: 'LoadErr' });
+        }
         return;
       }
 
@@ -58,8 +120,6 @@ const ContactProvider = ({ children }) => {
       }
     }
   };
-
-  const [contactList, contactDispatcher] = useReducer(reducer, initValue);
 
   return (
     <contactContext.Provider value={contactList}>
