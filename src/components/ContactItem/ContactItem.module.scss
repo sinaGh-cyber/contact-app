@@ -17,11 +17,33 @@
     justify-content: center;
     align-items: center;
     width: 75%;
+    min-height: 80px;
     margin-left: 10px;
+    text-align: center;
 
     p {
-      width: 50%;
+      width: 35%;
       padding: 10px;
+      cursor:default;
+      &::selection {
+        all: unset ;
+      }
+      &.email {
+        width: 65%;
+        word-break: break-all;
+      }
+    }
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      width: 100%;
+      p {
+        width: 100%;
+        padding: 10px 5px;
+        &.email {
+          width: 100%;
+        }
+      }
     }
   }
 
@@ -50,5 +72,18 @@
     .deleteBtn {
       color: rgb(249, 62, 62);
     }
+
+    @media (max-width: 800px) {
+      width: 100%;
+      justify-content: space-around;
+      .deleteBtn,
+      .editBtn {
+        font-size: xx-large;
+      }
+    }
+  }
+  @media (max-width: 800px) {
+    flex-direction: column;
+    min-height: 120px;
   }
 }
