@@ -7,6 +7,17 @@ const contactDispatcherContext = createContext();
 
 const reducer = (stat, { type, id, data }) => {
   switch (type) {
+    case 'toggleSelectMode': {
+      const unSelectedContacts = stat.allContacts.map((contact) => {
+        return { ...contact, isSelected: !contact.isSelected };
+      });
+      return {
+        ...stat,
+        allContacts: unSelectedContacts,
+        isSelectModeOn: !stat.isSelectModeOn,
+      };
+    }
+
     case 'filterContacts': {
       if (data && data !== stat.filterWord) {
         const filteredList = stat.allContacts.filter((contact) =>
@@ -15,7 +26,6 @@ const reducer = (stat, { type, id, data }) => {
         return {
           ...stat,
           filteredContacts: filteredList,
-          currentStatus: 'Loaded',
         };
       }
       return {
@@ -23,7 +33,6 @@ const reducer = (stat, { type, id, data }) => {
         filteredContacts: stat.allContacts,
       };
     }
-
 
     case 'deleteContact': {
       if (data < 300 && 199 < data) {
@@ -35,16 +44,13 @@ const reducer = (stat, { type, id, data }) => {
       return stat;
     }
 
-
     case 'LoadedMode': {
       return { ...stat, currentStatus: 'Loaded' };
     }
 
-
     case 'LoadingMode': {
       return { ...stat, currentStatus: 'Loading' };
     }
-
 
     case 'getData': {
       return {
@@ -67,13 +73,19 @@ const ContactProvider = ({ children }) => {
     currentStatus: 'Loading',
     filterWord: '',
     isSelectModeOn: false,
-    selectedContactIdList:[]
+    selectedContactIdList: [],
   };
 
   const [contactList, contactDispatcher] = useReducer(reducer, initValue);
 
   const asyncDispatcher = async ({ type, id, data }) => {
     switch (type) {
+      case 'toggleSelectMode': {
+        contactDispatcher({ type: 'toggleSelectMode' });
+        contactDispatcher({ type: 'filterContacts', data });
+        return;
+      }
+
       case 'deleteContact': {
         try {
           contactDispatcher({ type: 'LoadingMode' });
