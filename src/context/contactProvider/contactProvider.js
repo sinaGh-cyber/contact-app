@@ -89,6 +89,27 @@ const ContactProvider = ({ children }) => {
 
   const asyncDispatcher = async ({ type, id, data }) => {
     switch (type) {
+      case 'groupDelete': {
+        contactDispatcher({ type: 'LoadingMode' });
+        try {
+          for (let contact of contactList.allContacts) {
+            if (contact.isSelected) {
+              await httpRequests.deleteContact(contact.id);
+            }
+          }
+        } catch (error) {
+          toast.error(error.message, { toastId: 'groupDelete' });
+        }
+
+        try {
+          contactDispatcher({ type: 'toggleSelectMode' });
+        } catch (error) {
+          console.log(error);
+        }
+
+        return;
+      }
+
       case 'toggleContactItemSelectionStatus': {
         contactDispatcher({ type: 'toggleContactItemSelectionStatus', id });
         contactDispatcher({ type: 'filterContacts', data });
