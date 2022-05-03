@@ -7,9 +7,19 @@ const contactDispatcherContext = createContext();
 
 const reducer = (stat, { type, id, data }) => {
   switch (type) {
+    case 'toggleContactItemSelectionStatus': {
+      const allContacts = stat.allContacts.map((contact) => {
+        if (contact.id === id) {
+          contact = { ...contact, isSelected: !contact.isSelected };
+        }
+        return contact;
+      });
+      return { ...stat, allContacts };
+    }
+
     case 'toggleSelectMode': {
       const unSelectedContacts = stat.allContacts.map((contact) => {
-        return { ...contact, isSelected: !contact.isSelected };
+        return { ...contact, isSelected: false };
       });
       return {
         ...stat,
@@ -73,13 +83,19 @@ const ContactProvider = ({ children }) => {
     currentStatus: 'Loading',
     filterWord: '',
     isSelectModeOn: false,
-    selectedContactIdList: [],
   };
 
   const [contactList, contactDispatcher] = useReducer(reducer, initValue);
 
   const asyncDispatcher = async ({ type, id, data }) => {
     switch (type) {
+      case 'toggleContactItemSelectionStatus': {
+        contactDispatcher({ type: 'toggleContactItemSelectionStatus', id });
+        contactDispatcher({ type: 'filterContacts', data });
+
+        return;
+      }
+
       case 'toggleSelectMode': {
         contactDispatcher({ type: 'toggleSelectMode' });
         contactDispatcher({ type: 'filterContacts', data });
