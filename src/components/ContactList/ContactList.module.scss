@@ -1,4 +1,9 @@
 .ulTag {
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   list-style: none;
   width: 90%;
   height: 100%;
