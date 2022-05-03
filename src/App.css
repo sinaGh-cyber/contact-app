@@ -21,6 +21,9 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(218, 143, 31);
   }
+  html{
+    direction: rtl;
+  }
 
 .App{
     background-color: antiquewhite;
