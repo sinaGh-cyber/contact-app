@@ -1,0 +1,50 @@
+.navTag {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  background-color: red;
+
+  background-color: transparent;
+  .buttonGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    button {
+      background-color: transparent;
+      margin-left: 15px;
+      margin-top: 10px;
+      border: transparent;
+      font-size: xxX-large;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.02);
+      }
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+    .addBtn {
+      color: rgb(23, 126, 23);
+      &:hover {
+        color: rgb(0, 152, 0);
+      }
+      &:active {
+        color: rgb(23, 124, 23);
+      }
+    }
+  }
+}
+.listContainer {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  padding: 5px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  border-radius: 5px;
+}
