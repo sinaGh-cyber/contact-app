@@ -14,6 +14,7 @@ const reducer = (stat, { type, id, data }) => {
         }
         return contact;
       });
+
       return { ...stat, allContacts };
     }
 
@@ -92,13 +93,28 @@ const ContactProvider = ({ children }) => {
       case 'groupDelete': {
         contactDispatcher({ type: 'LoadingMode' });
         try {
+          // better way to delete a group of contacts for real backend:
+          // **********************************************************
+          // let toBeDeleted = [];
+          // for (let contact of contactList.allContacts) {
+          //   if (contact.isSelected) {
+          //     toBeDeleted.push(+contact.id);
+          //   }
+          // }
+          // **********************************************************
+
+          let deletedContactCounter = 0;
           for (let contact of contactList.allContacts) {
             if (contact.isSelected) {
               await httpRequests.deleteContact(contact.id);
+              deletedContactCounter++;
             }
           }
+          toast.info(`${deletedContactCounter} مخاطب حذف شد`, {
+            toastId: 'info',
+          });
         } catch (error) {
-          toast.error(error.message, { toastId: 'groupDelete' });
+          toast.error('عدم اتصال به اینترنت', { toastId: 'error' });
         }
 
         try {
@@ -132,18 +148,15 @@ const ContactProvider = ({ children }) => {
             id,
             data: res.status,
           });
-        } catch (err) {
-          toast.error(`${err}`, { toastId: `delete${id}` });
-        }
-        try {
           contactDispatcher({ type: 'filterContacts', data });
-          contactDispatcher({ type: 'LoadedMode' });
-          toast.info('Contact deleted successfully. ', {
-            toastId: `deleteSucceed${id}`,
+
+          toast.info('مخاطب با موفقیت حذف شد.', {
+            toastId: `info`,
           });
         } catch (err) {
-          console.log(err);
+          toast.error('عدم اتصال به اینترنت', { toastId: 'error' });
         }
+        contactDispatcher({ type: 'LoadedMode' });
 
         return;
       }
@@ -154,12 +167,12 @@ const ContactProvider = ({ children }) => {
           const res = await httpRequests.getAllContacts();
           contactDispatcher({ type: 'getData', data: res.data });
         } catch (err) {
-          toast.error(err, { toastId: 'getErr' });
+          toast.error('عدم اتصال به اینترنت', { toastId: 'error' });
         }
         try {
           contactDispatcher({ type: 'LoadedMode' });
         } catch (err) {
-          toast.error(err, { toastId: 'LoadErr' });
+          toast.error('عدم اتصال به اینترنت', { toastId: 'error' });
         }
         return;
       }
