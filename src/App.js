@@ -8,7 +8,13 @@ function App() {
   return (
     <div className="App">
       <section className="container">
-        <ToastContainer theme="colored" rtl />
+        <ToastContainer
+          theme="colored"
+          rtl
+          style={{
+            fontSize: '2rem',
+          }}
+        />
         <Routes>
           {routes.map((rout) => {
             return (
