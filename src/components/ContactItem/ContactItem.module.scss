@@ -24,25 +24,13 @@
     p {
       width: 35%;
       padding: 10px;
-      cursor:default;
+      cursor: default;
       &::selection {
-        all: unset ;
+        all: unset;
       }
       &.email {
         width: 65%;
         word-break: break-all;
-      }
-    }
-
-    @media (max-width: 800px) {
-      flex-direction: column;
-      width: 100%;
-      p {
-        width: 100%;
-        padding: 10px 5px;
-        &.email {
-          width: 100%;
-        }
       }
     }
   }
@@ -53,12 +41,12 @@
     justify-content: space-evenly;
     align-items: center;
 
-    .deleteBtn,
-    .editBtn {
+    button {
       background: none;
       border: none;
       font-size: x-large;
       transition: all 0.3s ease;
+      animation: expandingButtons 0.5s normal;
       cursor: pointer;
       &:hover {
         transform: scale(1.2);
@@ -72,18 +60,57 @@
     .deleteBtn {
       color: rgb(249, 62, 62);
     }
+  }
+}
 
-    @media (max-width: 800px) {
+@media (max-width: 800px) {
+  .liTag {
+    flex-direction: column;
+    min-height: 120px;
+
+    .info {
+      flex-direction: column;
+      width: 100%;
+      p {
+        width: 100%;
+        padding: 10px 5px;
+        &.email {
+          width: 100%;
+        }
+      }
+    }
+
+    .buttons {
       width: 100%;
       justify-content: space-around;
-      .deleteBtn,
-      .editBtn {
+      button {
         font-size: xx-large;
+        animation: expandingButtons 0.5s normal;
+      }
+
+      @keyframes expandingButtons {
+        from {
+          opacity: 0;
+          font-size: smaller;
+        }
+        to {
+          opacity: 1;
+          font-size: xx-large;
+        }
       }
     }
   }
-  @media (max-width: 800px) {
-    flex-direction: column;
-    min-height: 120px;
+}
+
+@media (min-width: 801px) {
+  @keyframes expandingButtons {
+    from {
+      opacity: 0;
+      font-size: smaller;
+    }
+    to {
+      opacity: 1;
+      font-size: x-large;
+    }
   }
 }
