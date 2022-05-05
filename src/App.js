@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <section className="container">
-        <ToastContainer theme="colored" position='top-left' />
+        <ToastContainer theme="colored" rtl />
         <Routes>
           {routes.map((rout) => {
             return (
