@@ -1,18 +1,50 @@
 .navTag {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   align-content: center;
-  background-color: red;
-
   background-color: transparent;
-  .buttonGroup {
+
+  .searchBar {
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
+    font-size: x-large;
+    flex-grow: 1;
+    padding: 0.5rem;
+    color: rgb(90, 51, 0);
+    height: 100%;
+    input {
+      flex-grow: 5;
+      align-self: stretch;
+      border-radius: 5px;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border: 2px solid rgb(149, 98, 30);
+      font-size: large;
+      font-weight: 800;
+      &:focus {
+        outline-color: rgb(255, 156, 25);
+      }
+    }
+    input::placeholder {
+      visibility: hidden;
+    }
+    label {
+      max-width: 18rem;
+      text-indent: 5px;
+      flex-grow: 1;
+    }
+  }
 
+  .buttonGroup {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    margin-right: 2rem;
+    min-width: 15%;
     button {
       background-color: transparent;
       margin-left: 15px;
@@ -59,6 +91,47 @@
   }
   to {
     opacity: 1;
-    font-size:xxx-large;
+    font-size: xxx-large;
+  }
+}
+
+@media (max-width: 600px) {
+  .navTag {
+    flex-direction: column-reverse;
+    .searchBar {
+      width: 100%;
+      flex-direction: column;
+      input {
+        margin: 0.5rem 5px;
+        height: 3.5rem;
+      }
+      label {
+        flex-grow: 0;
+      }
+    }
+    .buttonGroup {
+      width: 100%;
+      margin: 0;
+      padding: 0.5rem 0;
+      button {
+        margin: 0.5rem 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 300px) {
+  .navTag {
+    .searchBar {
+      label {
+        display: none;
+      }
+      input::placeholder {
+        visibility: visible;
+        font-size: large;
+        color: #444;
+        font-weight: 500;
+      }
+    }
   }
 }
