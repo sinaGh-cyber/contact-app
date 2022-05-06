@@ -3,7 +3,7 @@ import styles from './HomePage.module.scss';
 import { FaPlusCircle } from 'react-icons/fa';
 import { BiSelectMultiple, BiUndo } from 'react-icons/bi';
 import { CgUserRemove } from 'react-icons/cg';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useContact,
   useContactDispatcher,
@@ -12,15 +12,28 @@ import ContactList from '../../components/ContactList/ContactList';
 
 const HomePage = () => {
   const dispatch = useContactDispatcher();
-  const { isSelectModeOn } = useContact();
+  const { isSelectModeOn, filterWord, allContacts } = useContact();
+  const [isDeleteBtnDisabled, setIsDeleteBtnDisabled] = useState(false);
+
   useEffect(() => {
     dispatch({ type: 'getData' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    allContacts.some((contact) => !!contact.isSelected)
+      ? setIsDeleteBtnDisabled(false)
+      : setIsDeleteBtnDisabled(true);
+  }, [allContacts]);
+
+  const searchHandler = (e) => {
+    dispatch({ type: 'filterContacts', data: e.target.value });
+  };
+
   const selectToggleHandler = () => {
     dispatch({ type: 'toggleSelectMode' });
   };
+
   const deleteHandler = async () => {
     await dispatch({ type: 'groupDelete' });
     await dispatch({ type: 'getData' });
@@ -31,12 +44,23 @@ const HomePage = () => {
       <section className={styles.navTag}>
         <section className={styles.searchBar}>
           <label htmlFor="search">جستجو در مخاطبین: </label>
-          <input placeholder='جستجو...' type="text" name="search" id="search" />
+          <input
+            value={filterWord}
+            onChange={searchHandler}
+            placeholder="جستجو..."
+            type="text"
+            name="search"
+            id="search"
+          />
         </section>
         <section className={styles.buttonGroup}>
           {isSelectModeOn ? (
             <>
-              <button onClick={deleteHandler} className={styles.DeleteBtn}>
+              <button
+                disabled={isDeleteBtnDisabled}
+                onClick={deleteHandler}
+                className={styles.DeleteBtn}
+              >
                 <CgUserRemove />
               </button>{' '}
               <button
