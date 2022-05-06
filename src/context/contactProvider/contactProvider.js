@@ -31,17 +31,20 @@ const reducer = (stat, { type, id, data }) => {
 
     case 'filterContacts': {
       if (data && data !== stat.filterWord) {
-        const filteredList = stat.allContacts.filter((contact) =>
-          contact.name.includes(data)
+        const filteredList = stat.allContacts.filter(
+          (contact) =>
+            contact.name.includes(data) || contact.email.includes(data)
         );
         return {
           ...stat,
           filteredContacts: filteredList,
+          filterWord: data || '',
         };
       }
       return {
         ...stat,
         filteredContacts: stat.allContacts,
+        filterWord: '',
       };
     }
 
@@ -90,6 +93,14 @@ const ContactProvider = ({ children }) => {
 
   const asyncDispatcher = async ({ type, id, data }) => {
     switch (type) {
+      case 'filterContacts': {
+        if (contactList.isSelectModeOn) {
+          contactDispatcher({ type: 'toggleSelectMode' });
+        }
+        contactDispatcher({ type: 'filterContacts', data });
+        return;
+      }
+
       case 'groupDelete': {
         contactDispatcher({ type: 'LoadingMode' });
         try {
