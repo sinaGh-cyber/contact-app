@@ -21,21 +21,22 @@ const HomePage = () => {
   const selectToggleHandler = () => {
     dispatch({ type: 'toggleSelectMode' });
   };
+  const deleteHandler = async () => {
+    await dispatch({ type: 'groupDelete' });
+    await dispatch({ type: 'getData' });
+  };
 
   return (
     <>
       <section className={styles.navTag}>
-        <section className={styles.searchBar}></section>
+        <section className={styles.searchBar}>
+          <label htmlFor="search">جستجو در مخاطبین: </label>
+          <input placeholder='جستجو...' type="text" name="search" id="search" />
+        </section>
         <section className={styles.buttonGroup}>
           {isSelectModeOn ? (
             <>
-              <button
-                onClick={async () => {
-                  await dispatch({ type: 'groupDelete' });
-                  await dispatch({ type: 'getData' });
-                }}
-                className={styles.DeleteBtn}
-              >
+              <button onClick={deleteHandler} className={styles.DeleteBtn}>
                 <CgUserRemove />
               </button>{' '}
               <button
