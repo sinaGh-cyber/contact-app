@@ -7,9 +7,11 @@ import {
   useContact,
   useContactDispatcher,
 } from '../../context/contactProvider/contactProvider';
+import { useAlert } from '../../context/AlertProvider/AlertProvider';
 const ContactItem = ({ contact }) => {
   const dispatch = useContactDispatcher();
   const { isSelectModeOn } = useContact();
+  const { dispatchAlert } = useAlert();
 
   const selectItemHandler = () => {
     dispatch({
@@ -19,8 +21,12 @@ const ContactItem = ({ contact }) => {
   };
 
   const deleteHandler = () => {
-    dispatch({ type: 'deleteContact', id: contact.id });
+    const helper = () => {
+      dispatch({ type: 'deleteContact', id: contact.id });
+    };
+    dispatchAlert({ mode: 'alertSingleDelete', onUserAcceptation: helper });
   };
+
   return (
     <li className={styles.liTag}>
       <div className={styles.info}>
