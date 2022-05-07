@@ -9,11 +9,13 @@ import {
   useContactDispatcher,
 } from '../../context/contactProvider/contactProvider';
 import ContactList from '../../components/ContactList/ContactList';
+import { useAlert } from '../../context/AlertProvider/AlertProvider';
 
 const HomePage = () => {
   const dispatch = useContactDispatcher();
   const { isSelectModeOn, filterWord, allContacts } = useContact();
   const [isDeleteBtnDisabled, setIsDeleteBtnDisabled] = useState(false);
+  const { dispatchAlert } = useAlert();
 
   useEffect(() => {
     dispatch({ type: 'getData' });
@@ -34,9 +36,13 @@ const HomePage = () => {
     dispatch({ type: 'toggleSelectMode' });
   };
 
-  const deleteHandler = async () => {
-    await dispatch({ type: 'groupDelete' });
-    await dispatch({ type: 'getData' });
+  const deleteHandler = () => {
+    const helper = async () => {
+      await dispatch({ type: 'groupDelete' });
+      await dispatch({ type: 'getData' });
+    };
+
+    dispatchAlert({ mode: 'alertGroupDelete', onUserAcceptation: helper });
   };
 
   return (
