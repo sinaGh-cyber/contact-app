@@ -1,4 +1,4 @@
-import AddContact from './components/AddContact/AddContact';
+import AddContact from './Pages/AddContact/AddContact';
 import EditContact from './Pages/EditContact/EditContact';
 import HomePage from './Pages/HomePage/HomePage';
 import NotFound from './Pages/NotFound/NotFound';
