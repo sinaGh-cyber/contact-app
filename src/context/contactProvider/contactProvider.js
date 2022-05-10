@@ -150,6 +150,15 @@ const ContactProvider = ({ children }) => {
         return;
       }
 
+      case 'addContact':{
+        try {
+          await httpRequests.addNewContact(data);
+          toast.info('مخاطب افزوده شد.')
+        } catch (error) {
+          toast.error('خطای اتصال به اینترنت!')
+        }
+        return;
+      }
       case 'deleteContact': {
         try {
           contactDispatcher({ type: 'LoadingMode' });
