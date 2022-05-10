@@ -26,7 +26,8 @@
       font-size: large;
       font-weight: 800;
       &:focus {
-        outline-color: rgb(255, 156, 25);
+        outline: none;
+        border: 3px solid rgb(255, 156, 25);
       }
     }
     input::placeholder {
