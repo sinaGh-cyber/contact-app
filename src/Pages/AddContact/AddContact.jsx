@@ -7,7 +7,9 @@ const AddContact = () => {
       <nav>
         <Link to={'/'}>
           <button>
-            <RiContactsBookLine />
+            <span>
+              <RiContactsBookLine />
+            </span>
           </button>
         </Link>
       </nav>

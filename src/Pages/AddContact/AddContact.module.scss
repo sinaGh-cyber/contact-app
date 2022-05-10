@@ -13,13 +13,20 @@ nav {
   display: flex;
   padding: 1rem;
   flex-direction: row-reverse;
-
-  button {
-    background-color: rgb(255, 201, 100);
-    border: 2px solid rgb(119, 67, 0);
-    color: rgb(119, 67, 0);
-    padding: 0.6rem;
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    height: 6rem;
     border-radius: 100%;
+    border: 2px solid rgb(119, 67, 0);
+    background-color: rgb(255, 201, 100);
+  }
+  button {
+    border: none;
+    background-color: transparent;
+    color: rgb(119, 67, 0);
     font-size: xx-large;
     cursor: pointer;
     transition: all 0.3s linear;
@@ -31,7 +38,7 @@ nav {
     }
   }
   @media (max-width: 400px) {
-   justify-content: center;
+    justify-content: center;
   }
 }
 
