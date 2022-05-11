@@ -30,7 +30,7 @@ const reducer = (stat, { type, id, data }) => {
     }
 
     case 'filterContacts': {
-      if (data && data !== stat.filterWord) {
+      if (data && (data !== stat.filterWord || stat.isSelectModeOn)) {
         const filteredList = stat.allContacts.filter(
           (contact) =>
             contact.name.includes(data) || contact.email.includes(data)
@@ -38,13 +38,13 @@ const reducer = (stat, { type, id, data }) => {
         return {
           ...stat,
           filteredContacts: filteredList,
-          filterWord: data || '',
+          filterWord: data,
         };
       }
       return {
         ...stat,
-        filteredContacts: stat.allContacts,
-        filterWord: '',
+        filteredContacts: data ? stat.filteredContacts : stat.allContacts,
+        filterWord: data,
       };
     }
 
@@ -130,6 +130,10 @@ const ContactProvider = ({ children }) => {
 
         try {
           contactDispatcher({ type: 'toggleSelectMode' });
+          contactDispatcher({
+            type: 'filterContacts',
+            data: '',
+          });
         } catch (error) {
           console.log(error);
         }
@@ -139,23 +143,30 @@ const ContactProvider = ({ children }) => {
 
       case 'toggleContactItemSelectionStatus': {
         contactDispatcher({ type: 'toggleContactItemSelectionStatus', id });
-        contactDispatcher({ type: 'filterContacts', data });
+        contactDispatcher({
+          type: 'filterContacts',
+          data: contactList.filterWord,
+        });
 
         return;
       }
 
       case 'toggleSelectMode': {
         contactDispatcher({ type: 'toggleSelectMode' });
-        contactDispatcher({ type: 'filterContacts', data });
+
+        contactDispatcher({
+          type: 'filterContacts',
+          data: contactList.filterWord,
+        });
         return;
       }
 
-      case 'addContact':{
+      case 'addContact': {
         try {
           await httpRequests.addNewContact(data);
-          toast.info('مخاطب افزوده شد.')
+          toast.info('مخاطب افزوده شد.');
         } catch (error) {
-          toast.error('خطای اتصال به اینترنت!')
+          toast.error('خطای اتصال به اینترنت!');
         }
         return;
       }
