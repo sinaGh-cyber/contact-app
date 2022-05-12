@@ -51,7 +51,7 @@ const HomePage = () => {
         <section className={styles.searchBar}>
           <label htmlFor="search">جستجو در مخاطبین: </label>
           <input
-            value={filterWord}
+            value={filterWord || ''}
             onChange={searchHandler}
             placeholder="جستجو..."
             type="text"
