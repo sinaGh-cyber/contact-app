@@ -26,7 +26,7 @@
   }
 
 .App{
-    background-color: antiquewhite;
+    background-color: rgb(212, 212, 212);
     width: 100vW;
     height: 100vh;
     display: flex;
@@ -44,8 +44,8 @@
         align-items: center;
         height: 98%;
         width: 98%;
-        border: 5px solid rgb(255, 213, 157);
-        background-color: rgb(252, 219, 177);
+        border: 5px solid rgb(120, 120, 120);
+        background-color: rgb(207, 207, 207);
         border-radius: 5px;
         
         /* overflow: auto; */
