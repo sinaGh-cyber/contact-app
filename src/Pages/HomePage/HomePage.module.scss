@@ -5,6 +5,7 @@
   align-items: center;
   align-content: center;
   background-color: transparent;
+  margin-bottom: 2rem;
 
   .searchBar {
     display: flex;
@@ -48,11 +49,27 @@
     align-content: center;
     margin-right: 2rem;
     min-width: 15%;
+
     button {
+      .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 7rem;
+        height: 7rem;
+        border-radius: 100%;
+        background-color: rgb(165, 165, 165);
+        box-shadow: 4px 4px 20px 4px rgba(86, 86, 86, 0.77);
+        transition: all 0.3s linear;
+        &:active {
+          box-shadow: 2px 2px 20px 1px rgba(86, 86, 86, 0.77);
+        }
+      }
       background-color: transparent;
+
+      border: transparent;
       margin-left: 15px;
       margin-top: 10px;
-      border: transparent;
       font-size: xxX-large;
       animation: expandingButtons 0.5s normal;
       transition: all 0.3s linear;

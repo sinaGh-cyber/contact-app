@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import styles from './HomePage.module.scss';
-import { FaPlusCircle } from 'react-icons/fa';
-import { BiSelectMultiple, BiUndo } from 'react-icons/bi';
-import { CgUserRemove } from 'react-icons/cg';
+import {
+  IoAddOutline,
+  IoPersonRemove,
+  IoArrowUndo,
+  IoCheckmarkDone,
+} from 'react-icons/io5';
 import { useEffect, useState } from 'react';
 import {
   useContact,
@@ -67,23 +70,32 @@ const HomePage = () => {
                 onClick={deleteHandler}
                 className={styles.DeleteBtn}
               >
-                <CgUserRemove />
+                {' '}
+                <span className={styles.icon}>
+                  <IoPersonRemove />
+                </span>
               </button>{' '}
               <button
                 onClick={selectToggleHandler}
                 className={styles.CancelBtn}
               >
-                <BiUndo />
+                <span className={styles.icon}>
+                  <IoArrowUndo />
+                </span>
               </button>
             </>
           ) : (
             <button onClick={selectToggleHandler} className={styles.SelectBtn}>
-              <BiSelectMultiple />
+              <span className={styles.icon}>
+                <IoCheckmarkDone />
+              </span>
             </button>
           )}{' '}
           <Link to={'/add'}>
             <button className={styles.addBtn}>
-              <FaPlusCircle />
+              <span className={styles.icon}>
+                <IoAddOutline />
+              </span>
             </button>
           </Link>
         </section>
