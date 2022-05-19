@@ -16,7 +16,7 @@
     flex-shrink: 1;
     gap: 1rem;
     // padding: 0.5rem;
-    color: rgb(90, 51, 0);
+    color: #444;
     height: 100%;
     input {
       flex-grow: 5;
@@ -25,12 +25,13 @@
       border-radius: 5px;
       margin: 1.5rem 0;
       padding: 0.5rem;
-      border: 2px solid rgb(149, 98, 30);
+      border: 2px solid rgb(99, 99, 99);
       font-size: large;
       font-weight: 800;
       &:focus {
         outline: none;
-        border: 3px solid rgb(255, 156, 25);
+        border: 3px solid #5e5e5ead;
+        box-shadow: 0px 0px 20px 2px #5e5e5ead;
       }
     }
     input::placeholder {
@@ -80,7 +81,7 @@
         border: 2px solid #555;
         color: #444;
         border-radius: 100%;
-        background-color: rgb(165, 165, 165);
+        background-color: rgb(193, 190, 190);
         animation: expandingButtons 0.5s normal;
         transition: all 0.3s linear;
       }
