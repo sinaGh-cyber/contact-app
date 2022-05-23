@@ -12,3 +12,13 @@ a{
 html{
   font-size: 62.5%;
 }
+
+@font-face {
+  font-family: Vazir;
+  src: url(./utility/fonts/Vazir.woff);
+}
+@font-face {
+  font-family: Vazir;
+  src: url(./utility/fonts/Vazir-Bold.woff);
+  font-weight: bold;
+}
