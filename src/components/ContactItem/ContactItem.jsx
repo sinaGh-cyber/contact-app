@@ -8,6 +8,7 @@ import {
   useContactDispatcher,
 } from '../../context/contactProvider/contactProvider';
 import { useAlert } from '../../context/AlertProvider/AlertProvider';
+import Option from '../options/Option';
 const ContactItem = ({ contact }) => {
   const dispatch = useContactDispatcher();
   const { isSelectModeOn } = useContact();
@@ -40,16 +41,7 @@ const ContactItem = ({ contact }) => {
             {contact.isSelected ? <GrCheckboxSelected /> : <GrCheckbox />}
           </button>
         ) : (
-          <>
-            <button onClick={deleteHandler} className={styles.deleteBtn}>
-              <AiFillDelete />
-            </button>
-            <Link to={`/edit/${contact.id}/`}>
-              <button className={styles.editBtn}>
-                <GrEdit />
-              </button>
-            </Link>
-          </>
+          <Option contact={contact} />
         )}{' '}
       </div>
     </li>
