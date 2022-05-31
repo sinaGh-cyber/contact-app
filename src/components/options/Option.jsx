@@ -1,40 +1,29 @@
-import { useState } from 'react';
 import styles from './Option.module.scss';
-import { BsThreeDots } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { useContactDispatcher } from '../../context/contactProvider/contactProvider';
-import { useAlert } from '../../context/AlertProvider/AlertProvider';
-const Option = ({contact}) => {
-  const [isOptionsActive, setIsOptionsActive] = useState();
-  const {dispatch} = useContactDispatcher();
-  const {dispatchAlert} = useAlert()
-
-  const deleteHandler = () => {
-    const helper = () => {
-      dispatch({ type: 'deleteContact', id: contact.id });
-    };
-    dispatchAlert({ mode: 'alertSingleDelete', onUserAcceptation: helper });
-  };
-
+import { useOption } from '../../context/OptionProvider/OptionProvider';
+const Option = () => {
+  const { contactOptionMenu, dispatchOption } = useOption();
   return (
     <div className={styles.BtnContainer}>
-      {isOptionsActive ? (
-        <button>
-          <BsThreeDots />
-        </button>
-      ) : (
-        <menu className={styles.menu}>
-          <li className={`${styles.menuLi} ${styles.menuLi$$delete}`}>
-            <button onClick={deleteHandler} >Delete</button>
-          </li>
-          <li className={`${styles.menuLi} ${styles.menuLi$$edit}`}>
+      <menu className={styles.menu}>
 
-            <Link to={`/edit/${contact.id}/`}>
-            <button>Edit</button>
-            </Link>
-          </li>
-        </menu>
-      )}
+        <li className={`${styles.menuLi} ${styles.menuLidelete}`}>
+          <button onClick={contactOptionMenu.onDelete}>حذف</button>
+        </li>
+
+        <li className={`${styles.menuLi} ${styles.menuLiEdit}`}>
+          <Link to={`/edit/${contactOptionMenu.id}/`}>
+            <button
+              onClick={() => {
+                dispatchOption({ type: 'optionClose' });
+              }}
+            >
+              ویرایش
+            </button>
+          </Link>
+        </li>
+
+      </menu>
     </div>
   );
 };

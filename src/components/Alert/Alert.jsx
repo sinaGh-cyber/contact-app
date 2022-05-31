@@ -29,10 +29,7 @@ const Alert = () => {
         </section>
         <section className={styles.buttonGroup}>
           <button
-            style={{
-              backgroundColor: alert.buttonColor.backgroundColor,
-              color: alert.buttonColor.color,
-            }}
+            style={alert.buttonColor}
             onClick={dangerHandler}
             className={styles.dangerBtn}
           >

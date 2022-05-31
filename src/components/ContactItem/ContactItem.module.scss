@@ -1,3 +1,4 @@
+@use '../../utility/styles/colors.scss';
 .liTag {
   display: flex;
   justify-content: space-around;
@@ -5,11 +6,11 @@
   width: 100%;
   border-radius: 5px;
   font-size: x-large;
-  color: rgb(75, 49, 14);
-  border-bottom: 3px solid rgb(83, 54, 0);
+  color: colors.$gray-700;
+  border-bottom: 3px solid colors.$gray-500;
   margin: 1px auto;
   &:hover {
-    background: rgb(244, 171, 77);
+    background: colors.$gray-50;
   }
 
   .info {
@@ -49,16 +50,12 @@
       animation: expandingButtons 0.5s normal;
       cursor: pointer;
       &:hover {
-        transform: scale(1.2);
+        transform: scale(1.01);
       }
 
       &:active {
-        transform: scale(0.95);
+        transform: scale(0.98);
       }
-    }
-
-    .deleteBtn {
-      color: rgb(249, 62, 62);
     }
   }
 }
@@ -83,37 +80,12 @@
     .buttons {
       width: 100%;
       justify-content: space-around;
-      button {
-        font-size: xx-large;
-        animation: expandingButtons 0.5s normal;
-      }
-
-      @keyframes expandingButtons {
-        from {
-          opacity: 0;
-          font-size: smaller;
-        }
-        to {
-          opacity: 1;
-          font-size: xx-large;
-        }
-      }
+      
     }
   }
 }
 
-@media (min-width: 801px) {
-  @keyframes expandingButtons {
-    from {
-      opacity: 0;
-      font-size: smaller;
-    }
-    to {
-      opacity: 1;
-      font-size: x-large;
-    }
-  }
-}
+
 
 @media (max-width: 300px) {
 .liTag{

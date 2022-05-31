@@ -19,8 +19,8 @@ const reducer = (stat, { mode, onUserAcceptation }) => {
       return {
         ...newStat,
         buttonColor: {
-          color: 'rgb(76, 0, 0)',
-          backgroundColor: 'rgb(255, 60, 60)',
+          color: 'rgb(79, 44, 47)',
+          backgroundColor: 'rgb(227, 120, 129)',
         },
         buttonText: 'حذف',
         alertMessage: 'شما در حال حذف یکی از مخاطبینتان هستید!',
@@ -31,8 +31,8 @@ const reducer = (stat, { mode, onUserAcceptation }) => {
       return {
         ...newStat,
         buttonColor: {
-          color: 'rgb(76, 0, 0)',
-          backgroundColor: 'rgb(255, 60, 60)',
+          color: 'rgb(79, 44, 47)',
+          backgroundColor: 'rgb(227, 120, 129)',
         },
         buttonText: 'حذف',
         alertMessage: 'شما درحال حذف گروهی چند نفر از مخاطبانتان هستید!',
@@ -43,8 +43,8 @@ const reducer = (stat, { mode, onUserAcceptation }) => {
       return {
         ...newStat,
         buttonColor: {
-          color: 'rgb(0, 48, 0)',
-          backgroundColor: 'rgb(59, 199, 59)',
+          color: 'rgb(35, 71, 26 )',
+          backgroundColor: 'rgb(111, 218, 86  )',
         },
         buttonText: 'اعمال تغییرات',
         alertMessage: 'شما درحال تغییر اطلاعات این مخاطب هستید.',
@@ -55,8 +55,8 @@ const reducer = (stat, { mode, onUserAcceptation }) => {
       return {
         ...newStat,
         buttonColor: {
-          color: 'rgb(0, 48, 0)',
-          backgroundColor: 'rgb(59, 199, 59)',
+          color: 'rgb(35, 71, 26 )',
+          backgroundColor: 'rgb(111, 218, 86  )',
         },
         buttonText: 'افزودن',
         alertMessage: 'شما در حال افزودن مخاطب جدید هستید.',

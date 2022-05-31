@@ -1,3 +1,4 @@
+@use '../../utility/styles/colors.scss';
 .container {
   position: absolute;
   top: 0;
@@ -9,7 +10,7 @@
     margin: auto;
     width: 70%;
     height: 40%;
-    background-color: rgba(255, 207, 144, 0.848);
+    background-color: colors.$gray-100;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -20,7 +21,7 @@
     .text {
       p {
         font-size: x-large;
-        color: rgb(52, 29, 0);
+        color: colors.$gray-700;
         margin-top: 2rem;
         text-align: center;
       }
@@ -37,7 +38,7 @@
         font-size: x-large;
         cursor: pointer;
         transition: all 0.3s linear;
-        background-color: rgb(195, 195, 195);
+        background-color: colors.$gray-300;
         &:hover {
           transform: scale(1.05);
         }
