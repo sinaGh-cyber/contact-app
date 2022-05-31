@@ -1,9 +1,9 @@
 import initStat from './initStat';
 
-const reducer = (stat, { type, onDelete, elemRef, id }) => {
+const reducer = (stat, { type, onDelete, id }) => {
   switch (type) {
     case 'optionShow': {
-      return { isOptionMenuVisible: true, elemRef, onDelete, id };
+      return { isOptionMenuVisible: true, onDelete, id };
     }
 
     case 'optionClose': {
