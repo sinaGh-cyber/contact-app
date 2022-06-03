@@ -18,7 +18,7 @@ const ContactForm = ({
     const mobileData = formInfoClone.data.mobile;
 
     const isNameValid =
-      !!nameData && nameData.length < 20 && nameData.length > 5;
+      !!nameData && nameData.length < 25 && nameData.length > 5;
 
     const isEmailValid =
       emailData &&
