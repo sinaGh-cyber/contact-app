@@ -7,11 +7,20 @@
     justify-content: space-around;
     align-items: center;
     list-style: none;
+    padding: 0.5rem;
 
     .menuLi button {
       padding: 1rem;
       background-color: colors.$gray-200;
       border-radius: 0.7rem;
+    }
+    .menuLi.menuLidelete button {
+      background-color: rgb(206, 137, 137);
+      color: rgb(67, 44, 44);
+    }
+    .menuLi.menuLiEdit button {
+      background-color: rgb(200, 182, 142);
+      color: rgb(67, 59, 44);
     }
   }
 }

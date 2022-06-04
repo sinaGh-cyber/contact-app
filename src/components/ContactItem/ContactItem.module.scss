@@ -50,11 +50,11 @@
       animation: expandingButtons 0.5s normal;
       cursor: pointer;
       &:hover {
-        transform: scale(1.01);
+        transform: scale(1.04);
       }
 
       &:active {
-        transform: scale(0.98);
+        transform: scale(0.96);
       }
     }
   }
@@ -87,7 +87,7 @@
 
 
 
-@media (max-width: 300px) {
+@media (max-width: 400px) {
 .liTag{
   .info{
     p.email{
