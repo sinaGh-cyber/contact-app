@@ -66,12 +66,31 @@
       animation: expandingButtons 0.5s normal;
       transition: all 0.3s linear;
       cursor: pointer;
+
+      &:disabled {
+        .icon {
+          color: colors.$gray-300;
+          &:hover {
+            background-color: colors.$gray-100;
+          }
+          &:active {
+            background-color: colors.$gray-100;
+          }
+        }
+
+        &:hover {
+          transform: scale(1);
+        }
+        &:active {
+          transform: scale(1);
+        }
+      }
+
       &:hover {
         transform: scale(1.05);
       }
       &:active {
         transform: scale(0.96);
-        // font-size: xx-large;
       }
       .icon {
         display: flex;
