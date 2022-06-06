@@ -120,6 +120,7 @@ form {
 
         label {
           width: 100%;
+          padding: 8px;
         }
         input {
           width: 96%;
@@ -145,6 +146,17 @@ form {
       margin: 1rem;
       transition: all 0.3s linear;
       cursor: pointer;
+      &:disabled {
+        background-color: rgb(189, 215, 184);
+        color: rgb(127, 145, 122);
+        border: 2px solid rgb(92, 126, 92);
+        &:hover {
+          transform: scale(1);
+        }
+        &:active {
+          transform: scale(1);
+        }
+      }
       &:hover {
         transform: scale(1.05);
       }

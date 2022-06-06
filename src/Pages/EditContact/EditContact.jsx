@@ -9,32 +9,20 @@ const EditContact = () => {
   const { dispatchAlert } = useAlert();
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const initStat = {
-    data: {
-      name: '',
-      email: '',
-      company: '',
-      mobile: '',
-    },
-    error: {
-      name: { isValid: true, errorMessage: 'نام معتبر نیست!' },
-      email: { isValid: true, errorMessage: 'ایمیل معتبر نیست!' },
-      company: { isValid: true, errorMessage: 'شغل معتبر نیست!' },
-      mobile: { isValid: true, errorMessage: 'تلفن همراه معتبر نیست!' },
-    },
+  const initialValues = {
+    name: '',
+    email: '',
+    company: '',
+    mobile: '',
   };
 
-  const [formInfo, setFormInfo] = useState(initStat);
-
+  const [formInfo, setFormInfo] = useState(initialValues);
   useEffect(() => {
     httpRequests
       .getSingleContact(id)
       .then((res) => {
         if (res.status > 199 && res.status < 300) {
-          const formInfoClone = { ...formInfo };
-          formInfoClone.data = res.data;
-          setFormInfo(formInfoClone);
+          setFormInfo(res.data);
         } else {
           toast.error(res.statusText);
           navigate('/not-found');
@@ -47,9 +35,9 @@ const EditContact = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSubmit = () => {
+  const onSubmit = (values) => {
     const onUserAcceptation = async () => {
-      const res = await httpRequests.updateContact(id, formInfo.data);
+      const res = await httpRequests.updateContact(id, values);
       if (+res.status > 199 && +res.status < 300) {
         toast.info('تغییرات با موفقیت اعمال شد.', { toastId: 'edit' });
         navigate('/');
@@ -61,10 +49,9 @@ const EditContact = () => {
 
   return (
     <ContactForm
-      formInfo={formInfo}
-      setFormInfo={setFormInfo}
       onSubmit={onSubmit}
       submitButtonText={'اعمال تغییرات'}
+      preFiledValue={formInfo}
     />
   );
 };

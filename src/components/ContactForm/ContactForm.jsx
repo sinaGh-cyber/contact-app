@@ -1,68 +1,41 @@
 import styles from './ContactForm.module.scss';
 import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 import { RiContactsBookLine } from 'react-icons/ri';
-import { toast } from 'react-toastify';
-const ContactForm = ({
-  formInfo,
-  setFormInfo,
-  formChanger,
-  onSubmit,
-  submitButtonText,
-}) => {
-  const formValidator = () => {
-    const formInfoClone = { ...formInfo };
+import { useFormik } from 'formik';
 
-    const nameData = formInfoClone.data.name;
-    const emailData = formInfoClone.data.email;
-    const companyData = formInfoClone.data.company;
-    const mobileData = formInfoClone.data.mobile;
-
-    const isNameValid =
-      !!nameData && nameData.length < 25 && nameData.length > 5;
-
-    const isEmailValid =
-      emailData &&
-      emailData.match(
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-      );
-    const isCompanyValid = companyData
-      ? companyData.match(/^\D+$/) &&
-        companyData.length < 35 &&
-        companyData.length > 3
-      : true;
-
-    const isMobileValid = mobileData
-      ? mobileData.match(/09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/)
-      : true;
-
-    formInfoClone.error.name.isValid = isNameValid;
-    formInfoClone.error.email.isValid = isEmailValid;
-    formInfoClone.error.company.isValid = isCompanyValid;
-    formInfoClone.error.mobile.isValid = isMobileValid;
-
-    setFormInfo(formInfoClone);
-
-    if (isNameValid && isEmailValid && isCompanyValid && isMobileValid) {
-      return true;
-    }
-    return false;
+const ContactForm = ({ submitButtonText, onSubmit, preFiledValue }) => {
+  const initialValues = {
+    name: '',
+    email: '',
+    company: '',
+    mobile: '',
   };
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    if (formValidator()) {
-      onSubmit();
-    } else {
-      toast.error('اطلاعات وارد شده معتبر نیست');
-    }
-  };
+  const validationSchema = Yup.object({
+    name: Yup.string('تنها محتوای متنی مجاز است.')
+      .min(7, 'لطفا حداقل 7 کاراکتر وارد کنید.')
+      .max(30, 'حداکثر می توانید 30 کاراکتر وارد کنید.')
+      .required('لطفا نام مخاطب را وارد کنید.'),
+    email: Yup.string('تنها محتوای متنی مجاز است.')
+      .email('یک ایمیل معتر وار کنید.')
+      .required('لطفا ایمیل مخاطب را وارد کنید.'),
+    company: Yup.string('تنها محتوای متنی مجاز است.').max(
+      30,
+      'حداکثر می توانید 30 کاراکتر وارد کنید.'
+    ),
+    mobile: Yup.string().matches(phoneRegExp, 'شماره معتبر وارد کنید.'),
+  });
 
-  const onChangeHandler = (e) => {
-    const formInfoClone = { ...formInfo };
-    formInfoClone.data[e.target.name] = e.target.value;
-    setFormInfo(formInfoClone);
-    formValidator();
-  };
+  const formik = useFormik({
+    initialValues: preFiledValue || initialValues,
+    onSubmit,
+    validationSchema,
+    enableReinitialize: true,
+    validateOnMount: true,
+  });
 
   return (
     <>
@@ -75,20 +48,19 @@ const ContactForm = ({
           </button>
         </Link>
       </nav>
-      <form onSubmit={onSubmitHandler} className={styles.container}>
+      <form onSubmit={formik.handleSubmit} className={styles.container}>
         <div className={styles.inputContainer}>
           <div className={`${styles.input} ${styles.name}`}>
             <label htmlFor="name">نام و نام خانوادگی:</label>
             <input
-              value={formInfo.data.name || ''}
-              onChange={onChangeHandler}
+              {...formik.getFieldProps('name')}
               type="text"
               name="name"
               id="name"
             />
           </div>{' '}
-          {!formInfo.error.name.isValid && (
-            <p className={styles.error}>{formInfo.error.name.errorMessage}</p>
+          {formik.errors.name && formik.touched.name && (
+            <p className={styles.error}>{formik.errors.name}</p>
           )}
         </div>
 
@@ -96,15 +68,14 @@ const ContactForm = ({
           <div className={`${styles.input} ${styles.email}`}>
             <label htmlFor="email">ایمیل:</label>
             <input
-              value={formInfo.data.email || ''}
-              onChange={onChangeHandler}
+              {...formik.getFieldProps('email')}
               type="email"
               name="email"
               id="email"
             />
           </div>{' '}
-          {!formInfo.error.email.isValid && (
-            <p className={styles.error}>{formInfo.error.email.errorMessage}</p>
+          {formik.errors.email && formik.touched.email && (
+            <p className={styles.error}>{formik.errors.email}</p>
           )}
         </div>
 
@@ -113,17 +84,14 @@ const ContactForm = ({
           <div className={`${styles.input} ${styles.company}`}>
             <label htmlFor="company">شغل:</label>
             <input
-              value={formInfo.data.company || ''}
-              onChange={onChangeHandler}
+              {...formik.getFieldProps('company')}
               type="text"
               name="company"
               id="company"
             />
           </div>
-          {!formInfo.error.company.isValid && (
-            <p className={styles.error}>
-              {formInfo.error.company.errorMessage}
-            </p>
+          {formik.errors.company && formik.touched.company && (
+            <p className={styles.error}>{formik.errors.company}</p>
           )}
         </div>
 
@@ -131,20 +99,21 @@ const ContactForm = ({
           <div className={`${styles.input} ${styles.mobile}`}>
             <label htmlFor="mobile">تلفن همراه:</label>
             <input
-              value={formInfo.data.mobile || ''}
-              onChange={onChangeHandler}
+              {...formik.getFieldProps('mobile')}
               type="tel"
               name="mobile"
               id="mobile"
             />
           </div>{' '}
-          {!formInfo.error.mobile.isValid && (
-            <p className={styles.error}>{formInfo.error.mobile.errorMessage}</p>
+          {formik.errors.mobile && formik.touched.mobile && (
+            <p className={styles.error}>{formik.errors.mobile}</p>
           )}
         </div>
 
         <div className={styles.buttonGroup}>
-          <button type="submit">{submitButtonText}</button>
+          <button disabled={!formik.isValid} type="submit">
+            {submitButtonText}
+          </button>
         </div>
       </form>
     </>
