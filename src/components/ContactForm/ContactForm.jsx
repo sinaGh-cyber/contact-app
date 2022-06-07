@@ -53,6 +53,7 @@ const ContactForm = ({ submitButtonText, onSubmit, preFiledValue }) => {
           <div className={`${styles.input} ${styles.name}`}>
             <label htmlFor="name">نام و نام خانوادگی:</label>
             <input
+            className={`${formik.errors.name && formik.touched.name && styles.error}`}
               {...formik.getFieldProps('name')}
               type="text"
               name="name"
@@ -68,6 +69,7 @@ const ContactForm = ({ submitButtonText, onSubmit, preFiledValue }) => {
           <div className={`${styles.input} ${styles.email}`}>
             <label htmlFor="email">ایمیل:</label>
             <input
+            className={`${formik.errors.email && formik.touched.email && styles.error}`}
               {...formik.getFieldProps('email')}
               type="email"
               name="email"
@@ -84,6 +86,7 @@ const ContactForm = ({ submitButtonText, onSubmit, preFiledValue }) => {
           <div className={`${styles.input} ${styles.company}`}>
             <label htmlFor="company">شغل:</label>
             <input
+            className={`${formik.errors.company && formik.touched.company && styles.error}`}
               {...formik.getFieldProps('company')}
               type="text"
               name="company"
@@ -99,6 +102,7 @@ const ContactForm = ({ submitButtonText, onSubmit, preFiledValue }) => {
           <div className={`${styles.input} ${styles.mobile}`}>
             <label htmlFor="mobile">تلفن همراه:</label>
             <input
+            className={`${formik.errors.mobile && formik.touched.mobile && styles.error}`}
               {...formik.getFieldProps('mobile')}
               type="tel"
               name="mobile"
