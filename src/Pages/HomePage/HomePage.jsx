@@ -13,13 +13,15 @@ import {
 } from '../../context/contactProvider/contactProvider';
 import ContactList from '../../components/ContactList/ContactList';
 import { useAlert } from '../../context/AlertProvider/AlertProvider';
+import { useTransition } from 'react';
 
 const HomePage = () => {
   const dispatch = useContactDispatcher();
-  const { isSelectModeOn, filterWord, allContacts } = useContact();
+  const { isSelectModeOn, allContacts } = useContact();
   const [isDeleteBtnDisabled, setIsDeleteBtnDisabled] = useState(false);
   const { dispatchAlert } = useAlert();
-
+  const [isPending, startTransition] = useTransition();
+  const [query, setQuery] = useState('');
   useEffect(() => {
     dispatch({ type: 'getData' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +34,11 @@ const HomePage = () => {
   }, [allContacts]);
 
   const searchHandler = (e) => {
-    dispatch({ type: 'filterContacts', data: e.target.value });
+    setQuery(e.target.value);
+
+    startTransition(() => {
+      dispatch({ type: 'filterContacts', data: e.target.value });
+    });
   };
 
   const selectToggleHandler = () => {
@@ -54,7 +60,7 @@ const HomePage = () => {
         <section className={styles.searchBar}>
           <label htmlFor="search">جستجو در مخاطبین: </label>
           <input
-            value={filterWord || ''}
+            value={query}
             onChange={searchHandler}
             placeholder="جستجو..."
             type="text"
